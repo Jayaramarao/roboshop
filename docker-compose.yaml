@@ -1,0 +1,34 @@
+version: "3.8"
+networks:
+  roboshop:
+    driver: bridge
+services:
+  web:
+    image: web:v1
+    container_name: web
+    depends_on:
+      -  catalogue
+      -  user
+      -  cart
+  mangodb:
+    image: mangodb:v1
+    container_name: mangodb
+  catalogue:
+    image: catalogue:v1
+    container_name: catalogue
+    depends_on:
+      -  mangodb
+  user:
+    image: user:v1
+    container_name: user
+    depends_on:
+      -  redis
+      -  mangodb
+  redis:
+    image: redis
+    container_name: redis
+  cart:
+    image: cart:v1
+    container_name: cart
+    depends_on:
+      -  redis
