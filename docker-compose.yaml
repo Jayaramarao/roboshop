@@ -52,4 +52,8 @@ services:
     container_name: payment
     depends_on:
       -  rabbitmq
+  ratings:
+    image: rating:v1
+    container_name: ratings
+    
 
