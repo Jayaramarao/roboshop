@@ -2,6 +2,11 @@ version: "3.8"
 networks:
   roboshop:
     driver: bridge
+volumes:
+  mongodb:
+  rabbitmq:
+  radis:
+  mysql:
 services:
   web:
     image: web:v1
@@ -18,6 +23,8 @@ services:
   mongodb:
     image: mongodb:v1
     container_name: mongodb
+    volumes:
+      - mongodb:/data/db
   catalogue:
     image: catalogue:v1
     container_name: catalogue
@@ -32,6 +39,8 @@ services:
   redis:
     image: redis
     container_name: redis
+    volumes:
+      - radis:/data
   cart:
     image: cart:v1
     container_name: cart
@@ -40,6 +49,8 @@ services:
   mysql:
     image: mysql:v1
     container_name: mysql
+    volumes:
+      - mysql:/var/lib/mysql
   shipping:
     image: shipping:v1
     container_name: shipping
@@ -47,6 +58,9 @@ services:
       -  mysql
   rabbitmq:
     image: rabbitmq
+    container_name: rabbitmq
+    volumes:
+      - rabbitmq:/var/lib/rabbitmq
   payment:
     image: payment:v1
     container_name: payment
